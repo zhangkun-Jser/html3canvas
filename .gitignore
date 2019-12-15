@@ -1,0 +1,15 @@
+node_modules
+.svn
+*.swp
+*.swo
+.nyc_output/
+logs/
+/.vscode
+/coverage
+npm-debug.log
+npm-debug.*
+.DS_Store
+eslint.log
+package-lock.json
+test/app.js
+test/files

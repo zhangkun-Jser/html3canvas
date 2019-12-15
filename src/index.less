@@ -1,0 +1,69 @@
+.select-box {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  // margin: 2px;
+  // padding: 10px 10px;
+
+  .transferContainer {
+    display: flex;
+    height: 100%;
+    flex-direction: row;
+    align-items: flex-start;
+
+    .arrow {
+      width: 8px;
+      height: 16px;
+      background-image: url("imgs/fg_arrow.png");
+      margin: 0 10px;
+      align-self: center;
+    }
+  }
+
+  .treeViewWrapper {
+    flex: 1;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .treeViewContainer {
+    flex: 1;
+    height: 100%;
+    overflow-y: auto;
+    border: 1px solid #d9d9d9;
+  }
+
+  .btnSelect {
+    color: #378bd2;
+    cursor: pointer;
+  }
+  .btnSelectDisabled {
+    color: rgba(0, 0, 0, 0.45) !important;
+    cursor: default;
+  }
+
+  .boxTitle {
+    display: flex;
+    margin-bottom: 3px;
+    height: 35px;
+    justify-content: space-between;
+    align-items: center;
+
+    .titleText {
+      width: 200px;
+    }
+
+    .search {
+      flex: 1;
+    }
+
+    .btnAllSelect {
+      width: 65px;
+      margin: auto 10px auto 20px;
+    }
+  }
+  .ant-table-small {
+    border: 0;
+  }
+}

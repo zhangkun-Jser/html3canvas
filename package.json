@@ -1,0 +1,62 @@
+{
+  "name": "transfer-box",
+  "version": "1.0.1",
+  "description": "多选穿梭框",
+  "main": "./dist/index.js",
+  "bin": {},
+  "scripts": {
+    "lint": "eslint --ext .js,.jsx ./src/",
+    "dev": "webpack && webpack-dev-server --inline --content-base ./test/",
+	  "babel": "babel src -d dist",
+  	"copy": "cp-cli src/imgs dist/imgs",
+    "css": "cp-cli src/index.less dist/index.less && lessc dist/index.less dist/index.css",
+    "build": "npm run lint && npm run copy && npm run babel && npm run css"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/zhangkun-Jser/transfer-box.git"
+  },
+  "author": "zhangkun@sogou-inc.com",
+  "license": "MIT",
+  "dependencies": {
+    "memoize-one": "^4.0.0",
+    "shallowequal": "^1.1.0"
+  },
+  "peerDependencies": {
+    "react": "^16.0.0",
+    "antd": "^3.0.0",
+    "axios": "^0.18.0"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.4.4",
+    "@babel/core": "^7.4.5",
+    "@babel/plugin-proposal-class-properties": "^7.5.5",
+    "@babel/preset-env": "^7.4.5",
+    "@babel/preset-react": "^7.0.0",
+    "antd": "^3.0.0",
+    "axios": "^0.19.0",
+    "babel-eslint": "^10.0.1",
+    "babel-loader": "^8.0.6",
+    "babel-plugin-import": "^1.11.0",
+    "cp-cli": "^1.1.2",
+    "css-loader": "^0.28.9",
+    "eslint": "^5.2.0",
+    "eslint-plugin-babel": "^5.1.0",
+    "eslint-plugin-import": "^2.13.0",
+    "eslint-plugin-jsx-a11y": "^6.1.1",
+    "eslint-plugin-react": "^7.10.0",
+    "file-loader": "^1.1.11",
+    "less": "^3.10.3",
+    "less-loader": "^5.0.0",
+    "prop-types": "^15.6.2",
+    "react": "^16.0.0",
+    "react-dom": "^16.0.0",
+    "style-loader": "^1.0.0",
+    "webpack": "^4.41.2",
+    "webpack-cli": "^3.3.9",
+    "webpack-dev-server": "^3.8.2"
+  },
+  "engines": {
+    "node": ">=8.0"
+  }
+}

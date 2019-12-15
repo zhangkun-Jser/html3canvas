@@ -1,0 +1,14 @@
+/node_modules
+/.sass-cache
+/test
+/dev
+/.vscode
+/coverage
+./npm-debug.log
+./npm-debug.*
+.DS_Store
+.eslintrc.js
+.eslintignore
+gulpfile.js
+package-lock.json
+.babelrc
