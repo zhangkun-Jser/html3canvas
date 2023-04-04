@@ -1,0 +1,80 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
+<html>
+    <head>
+        <title>
+            display/box/float/clear test
+        </title>
+        <script type="text/javascript" src="//cdn.bootcdn.net/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+        <!-- <link href="//cdn.bootcdn.net/ajax/libs/twitter-bootstrap/3.0.2/css/bootstrap.min.css" rel="stylesheet"> -->
+        <link href="./main.css" rel="stylesheet" />
+    </head>
+    <body>
+        <button id="btn">截图</button>
+        <dl>
+            <dt>
+                toggle
+            </dt>
+            <dd>
+                <ul>
+                    <li id="a1">
+                        a1a1a1a1a1a1a1a1a1a1a1a1
+                    </li>
+                    <li id="bar">
+                        <p id="a2">
+                            the world ends
+                        </p>
+                        <form action="./" method="get">
+                            <p>
+                                bang
+                                <input type="radio" name="foo" value="off" />
+                            </p>
+                            <p>
+                                whimper
+                                <input type="radio" name="foo2" value="on" />
+                            </p>
+                        </form>
+                    </li>
+                    <li id="a3">
+                        a3a3a3a3a3a3a3a3a3a3a3a3a3a3a3a3
+                    </li>
+                    <li id="baz">
+                        a22a22a22a22a22a22a22a22a22a22a22a22a22a22a22a22a22a22a22
+                    </li>
+                </ul>
+                <blockquote>
+                    <address>
+                        bar maids,
+                    </address>
+                </blockquote>
+                <h1>
+                    sing to me, erbarme dich
+                </h1>
+            </dd>
+        </dl>
+        <p style="color: black; font-size: 1em; line-height: 1.3em; clear: both">
+            This is a nonsensical document, but syntactically valid HTML 4.0. All 100% conformant CSS1 agents should be
+            able to render the document elements above this paragraph <b>indistinguishably</b> (to the pixel) from this
+            reference rendering, (except font rasterization and form widgets). All discrepancies should be traceable to
+            CSS1 implementation shortcomings. Once you have finished evaluating this test, you can return to the
+            <a href="sec5526c.htm" style="text-decoration:none">parent page</a>.
+        </p>
+        <script type="text/javascript" src="../dist/html3canvas.js"></script>
+        <script type="text/javascript">
+            const a1 = document.getElementById('a1');
+            const a2 = document.getElementById('baz');
+            const a3 = document.getElementById('a3');
+            const array = [a1, a2, a3];
+            const getRanDom = () => array[Math.floor(Math.random() * array.length)];
+
+            document.getElementById('btn').onclick = function() {
+                html3canvas(getRanDom(), {
+                    useOnlyIFrame: true,
+                    removeContainer: false
+                }).then(function(canvas) {
+                    document.body.appendChild(canvas);
+                });
+                alert('截图');
+            };
+        </script>
+    </body>
+</html>
