@@ -1,62 +1,117 @@
-# transfer-box
-[![NPM](https://nodei.co/npm/transfer-box.png)](https://nodei.co/npm/transfer-box/)
+html3canvas
+===========
 
-## 安装
-```
-npm install "transfer-box"
-```
+html2canvas修正版,解决绘制多个元素重复创建iframe的问题.
 
 ## 使用
-- 引入组件，因为selectbox依赖于antd的table，所以如果发现样式缺失，说明项目启动后从没引用过antd的table，此时需要手动引用
-```
-import SelectBox from 'transfer-box';
-import 'antd/lib/table/style'; //如果需要的话引用antd的table样式
+```javascript
+import html3canvas from "html3canvas";
+const resultCanvas = await html2canvas(el, opt);
 ```
 
-- 引入selectbox样式
+## 文档
 
-在项目入口引入“transfer-box/lib/index.less” 或 “transfer-box/lib/index.css”
+#### * 若`opations`参数没有`elements`字段, 则用法和返回和html2canvas 原库一摸一样
+```javascript
+html3canvas(a1, {}).then((canvass)=> {
+  document.body.appendChild(canvas);
+});
+```
+
+#### * 复用1个iframe节省资源用法, useOnlyIFrame = true
+```javascript
+const a1 = document.getElementById("a1");
+const a2 = document.getElementById("baz");
+const a3 = document.getElementById("a3");
+const array = [a1, a2, a3];
+const getRanDom = () => array[Math.floor(Math.random() * array.length)];
+
+document.getElementById("btn").onclick = function() {
+  html3canvas(getRanDom(), {
+    useOnlyIFrame: true,
+    removeContainer: false
+  }).then(function(canvas) {
+    document.body.appendChild(canvas);
+  });
+  alert("截图");
+};
 
 ```
-@import '~transfer-box/lib/index.less';
+
+#### * 单frame渲染多个dom, 必须传`elements`字段, 返回`canvass`为三个结果canvas数组
+```javascript
+const a1 = document.getElementById('a1');
+const a2 = document.getElementById('a2');
+const a3 = document.getElementById('a3');
+
+html3canvas(a1, {
+  elements: [a1, a2, a3],
+  removeContainer: true
+}).then((canvass)=> {
+  canvass.forEach(canvas => {
+    document.body.appendChild(canvas);
+  });
+});
+```
+
+#### * 预传size, 指定尺寸
+```javascript
+const a1 = document.getElementById('a1');
+const a2 = document.getElementById('a2');
+const a3 = document.getElementById('a3');
+
+html3canvas(a1, {
+  elements: [a1, a2, a3],
+  size: [[100,100], [120,100], [50, 70]]
+}).then((canvass)=> {
+  canvass.forEach(canvas => {
+    document.body.appendChild(canvas);
+  });
+});
+```
+
+#### * 预传canvas
+```javascript
+const a1 = document.getElementById('a1');
+const a2 = document.getElementById('a2');
+const a3 = document.getElementById('a3');
+
+const c1 = createCanvas(100, 100);
+const c2 = createCanvas(120, 100);
+const c3 = createCanvas(50, 70);
+
+html3canvas(a1, {
+  elements: [a1, a2, a3],
+  canvass: [c1, c2, c3],
+  size: [[100,100], [120,100], [50, 70]]
+}).then((canvass)=> {
+  canvass.forEach(canvas => {
+    document.body.appendChild(canvas);
+  });
+});
 ```
 
 ## 参数
-
- Prop | Type | Description | default
- ---|---|---|---
-style | object | 样式，如果此处设置了width或height会覆盖掉上边的width，height | -
-childrenLoadQueryKey | string | 请求子节点key名称 | `planId`
-childrenLoadUrl | string | 请求子节点的url, `expandable`为true时，该属性必须设置 | -
-childrenLoadParam | object | 请求子节点参数 | -
-disabledPropsKey |  string | 用于判断选中状态的key | `isSelected`
-height | number | 高度 | 450
-width | number | 宽度 | -
-loadingL | bool | 左侧显示loading | -
-loadingR | bool | 右侧显示loading | -
-parentSelectable | bool | 父节点是否可选中 | true
-allSelect | bool | 是否显示全部添加 | false
-expandable | bool | 是否可展开 | true
-dataSourceL | array | 左侧数据源 | []
-dataSourceR | array | 右侧数据源 | []
-keyField | string | id字段名 | `id`
-displayField | string | 展示字段名 | `name`
-childCountField | string | 表示子节点数量的字段名称 | -
-searchPlaceholder | string | 搜索框提示语 | -
-title | string | 左右两侧box标题，左侧目前无效 | { l: '', r: '' }
-maxSelectedCount | number | 最大可选择数量 | -
-maxErrorCB | function | 超出最大数量的回调函数 | 弹框提示
-labelRenderFunc | function | 标签渲染函数 | -
-
-## API
-
-方法名 | Description | params
- ---|---|---
-getSelection | 返回当前selectbox的状态 | 无
-clear | 清空box状态 | 无
-
-## 图示
-
-  <div display="inline">
-        <img src="https://bizimg.sogoucdn.com/201911/06/16/47/58/atlas-fe/apmzMiJUeH.gif">
-  </div>
+|Name	| Default	| Description|
+|  ----  | ----  |----  |
+|allowTaint |	false	 |Whether to allow cross-origin images to taint the canvas|
+|backgroundColor |	#ffffff |	Canvas background color, if none is specified in DOM. Set null for transparent|
+|canvas |	null |	Existing canvas element to use as a base for drawing on|
+|foreignObjectRendering |	false |	Whether to use ForeignObject rendering if the browser supports it|
+|imageTimeout |	15000	 |Timeout for loading an image (in milliseconds). Set to 0 to disable timeout.|
+|ignoreElements |	(element) => false |	Predicate function which removes the matching elements from the render.|
+|logging |	true |	Enable logging for debug purposes|
+|onclone |	null |	Callback function which is called when the Document has been cloned for rendering, |
+|original | source  |document.|
+|proxy |	null |	Url to the proxy which is to be used for loading cross-origin images. If left empty, cross-origin images won't be loaded.|
+|removeContainer |	true |	Whether to cleanup the cloned DOM elements html2canvas creates temporarily|
+|scale |	window.devicePixelRatio |	The scale to use for rendering. Defaults to the browsers device pixel ratio.|
+|useCORS |	false |	Whether to attempt to load images from a server using CORS|
+|width |	Element width	 | The width of the canvas|
+|height |	Element height |	The height of the canvas|
+|x |	Element x-offset	 | Crop canvas x-coordinate|
+|y |	Element y-offset	 | Crop canvas y-coordinate|
+|scrollX |	Element scrollX	 | The x-scroll position to used when rendering element, (for example if the Element uses position: fixed)|
+|scrollY |	Element scrollY	 | The y-scroll position to used when rendering element, (for example if the Element uses position: fixed)|
+|windowWidth |	Window.innerWidth	 |Window width to use when rendering Element, which may affect things like Media queries|
+|windowHeight	 | Window.innerHeight	 |Window height to use when rendering Element, which may affect things like Media queries|
